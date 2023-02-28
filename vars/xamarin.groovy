@@ -11,4 +11,6 @@ def construct(String android_project_location, String ios_project_location, Stri
 
 def build_android_app(){
     sh "\"${tool 'xbuild'}\" ${xamarinEnv.android_project_location} /p:Configuration=Release /t:PackageForAndroid /p:MonoSymbolArchive=False /p:SetVersion=True /p:VersionNumber=${xamarinEnv.version_name} /p:BuildNumber=${xamarinEnv.version_number}"
+    sh "/Users/deepaksuryam/Library/Android/sdk/build-tools/32.0.0/zipalign -f -v 4 $INPUT_APK $FINAL_APK"
+    sh "/Users/deepaksuryam/Library/Android/sdk/build-tools/32.0.0/apksigner sign --ks $KEYSTORE_FILE --ks-key-alias $KEYSTORE_ALIAS --ks-pass pass:$STORE_PASS $FINAL_APK"
 }
