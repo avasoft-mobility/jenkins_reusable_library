@@ -1,6 +1,6 @@
 package org.foo
 xamarinEnv
-def construct(String android_project_location, String ios_project_location, String version_name, String version_number, String input_apk, String final_apk, String final_ipa, String keystore_file, String keystore_alias, String keystore_password, String android_app_name, String android_distribution_groups, String android_owner_name, String android_application_path){
+def construct(String android_project_location, String ios_project_location, String version_name, String version_number, String input_apk, String final_apk, String final_ipa, String keystore_file, String keystore_alias, String keystore_password, String android_app_name, String android_distribution_groups, String android_owner_name, String android_application_path, String ios_app_name, String ios_distribution_groups, String ios_owner_name, String ios_application_path){
     xamarinEnv = [
             android_project_location : android_project_location,
             ios_project_location: ios_project_location,
