@@ -1,6 +1,6 @@
 package org.foo
 xamarinEnv
-def construct(String android_project_location, String ios_project_location, String version_name, String version_number, String input_apk, String final_apk, String final_ipa, String keystore_file, String keystore_alias, String keystore_password){
+def construct(String android_project_location, String ios_project_location, String version_name, String version_number, String input_apk, String final_apk, String final_ipa, String keystore_file, String keystore_alias, String keystore_password, String android_app_name, String android_distribution_groups, String android_owner_name, String android_application_path){
     xamarinEnv = [
             android_project_location : android_project_location,
             ios_project_location: ios_project_location,
@@ -11,7 +11,11 @@ def construct(String android_project_location, String ios_project_location, Stri
             final_ipa: final_ipa,
             keystore_file: keystore_file,
             keystore_alias: keystore_alias,
-            keystore_password: keystore_password
+            keystore_password: keystore_password,
+            android_app_name: android_app_name, 
+            android_distribution_groups: android_distribution_groups,
+            android_owner_name: android_owner_name,
+            android_application_path: android_application_path
     ]
 }
 
@@ -29,6 +33,6 @@ def build_ios_app(){
 
 def deploy_android_app(){
     withCredentials([string(credentialsId: 'acima_appcenter_api_token', variable: 'acima_appcenter_api_token')]){
-        appCenter apiToken: "$acima_appcenter_api_token", appName: "$android_app_name", branchName: '', buildVersion: '', commitHash: '', distributionGroups: "$android_distribution_groups", mandatoryUpdate: false, notifyTesters: false, ownerName: "$android_owner_name", pathToApp: "$android_application_path", pathToDebugSymbols: '', pathToReleaseNotes: '', releaseNotes: ''
+        appCenter apiToken: "$acima_appcenter_api_token", appName: "${xamarinEnv.android_app_name}", branchName: '', buildVersion: '', commitHash: '', distributionGroups: "${xamarinEnv.android_distribution_groups}", mandatoryUpdate: false, notifyTesters: false, ownerName: "${xamarinEnv.android_owner_name}", pathToApp: "${xamarinEnv.android_application_path}", pathToDebugSymbols: '', pathToReleaseNotes: '', releaseNotes: ''
     }
 }
