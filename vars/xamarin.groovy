@@ -15,7 +15,11 @@ def construct(String android_project_location, String ios_project_location, Stri
             android_app_name: android_app_name, 
             android_distribution_groups: android_distribution_groups,
             android_owner_name: android_owner_name,
-            android_application_path: android_application_path
+            android_application_path: android_application_path,
+            ios_app_name: ios_app_name, 
+            ios_distribution_groups: ios_distribution_groups,
+            ios_owner_name: ios_owner_name,
+            ios_application_path: ios_application_path
     ]
 }
 
@@ -34,5 +38,11 @@ def build_ios_app(){
 def deploy_android_app(){
     withCredentials([string(credentialsId: 'acima_appcenter_api_token', variable: 'acima_appcenter_api_token')]){
         appCenter apiToken: "$acima_appcenter_api_token", appName: "${xamarinEnv.android_app_name}", branchName: '', buildVersion: '', commitHash: '', distributionGroups: "${xamarinEnv.android_distribution_groups}", mandatoryUpdate: false, notifyTesters: false, ownerName: "${xamarinEnv.android_owner_name}", pathToApp: "${xamarinEnv.android_application_path}", pathToDebugSymbols: '', pathToReleaseNotes: '', releaseNotes: ''
+    }
+}
+
+def deploy_ios_app(){
+    withCredentials([string(credentialsId: 'acima_appcenter_api_token', variable: 'acima_appcenter_api_token')]){
+        appCenter apiToken: "$acima_appcenter_api_token", appName: "${xamarinEnv.ios_app_name}", branchName: '', buildVersion: '', commitHash: '', distributionGroups: "${xamarinEnv.ios_distribution_groups}", mandatoryUpdate: false, notifyTesters: false, ownerName: "${xamarinEnv.ios_owner_name}", pathToApp: "${xamarinEnv.ios_application_path}", pathToDebugSymbols: '', pathToReleaseNotes: '', releaseNotes: ''
     }
 }
