@@ -26,3 +26,9 @@ def build_ios_app(){
     sh "PlistBuddy acima_mbl_app/acima_mbl_app.iOS/info.plist -c \"set :CFBundleVersion ${xamarinEnv.version_number}\""
     sh "\"${tool 'xbuild'}\" ${xamarinEnv.ios_project_location} /p:BuildIpa=True /p:IpaPackageDir=$WORKSPACE /p:IpaPackageName=${xamarinEnv.final_ipa} /p:Platform=iPhone /p:Configuration=Release /t:Build"
 }
+
+def deploy_android_app(){
+    withCredentials([string(credentialsId: 'acima_appcenter_api_token', variable: 'acima_appcenter_api_token')]){
+        appCenter apiToken: "$acima_appcenter_api_token", appName: "$android_app_name", branchName: '', buildVersion: '', commitHash: '', distributionGroups: "$android_distribution_groups", mandatoryUpdate: false, notifyTesters: false, ownerName: "$android_owner_name", pathToApp: "$android_application_path", pathToDebugSymbols: '', pathToReleaseNotes: '', releaseNotes: ''
+    }
+}
